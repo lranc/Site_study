@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    lranc | 首页
+{% endblock %}
+
+{% block header_extends %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <!-- <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script> -->
+    <script type="text/javascript" src="{% static 'js/highcharts.js' %}"></script>
+{% endblock %}
+
+{% block nav_home_active %}nav-item active{% endblock %}
+
+{% block content %}
+    <h3 class="home-content">
+        <a class="title" href="{% url 'home' %}">Hello, lranc</a>
+    </h3>
+    <div class="container">
+        <div class="row">
+            <div id="func_list" class="col-sm-7 offset-sm-2">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#note" data-toggle="tab">home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#show_heat_chart" data-toggle="tab">趋势图</a>
+                    </li>                
+                </ul>
+                <div id="myTab1" class="tab-content">
+                    <div class="container tab-pane active" id="note">
+                        <h3 class="title">当时明月在<br>曾照彩云归</h3>
+                    </div>
+                    <div class="container tab-pane fade" id="show_heat_chart">
+                    </div>
+                </div>
+            </div>
+            <div id="read_list" class="col-sm-2">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item dropdown">
+                        <a href="#" id="TabDrop" class="nav-link dropdown-toggle" data-toggle="dropdown">热门</a>
+                        <div class="dropdown-menu" role="menu" aria-labelledby="TabDrop">
+                            <a href="#show_today_heat" class="dropdown-item" data-toggle="tab">今日热门</a>
+                            <a href="#show_yesterday_heat" class="dropdown-item" data-toggle="tab">昨日热门</a>
+                            <a href="#show_week_heat" class="dropdown-item" data-toggle="tab">一周热门</a>
+                        </div>
+                    </li>
+                </ul>
+                <div id="myTab2" class="tab-content">
+                    <div class="container tab-pane active" id="show_today_heat">
+                        <div class="hot-data">
+                            <h3>今日热门</h3>
+                            <ul>
+                                {% for hot_data in today_hot_data%}
+                                    <li>
+                                        <a href="{% url 'blog:blog_detail' hot_data.content_object.pk %}">
+                                        {{ hot_data.content_object.title}}</a> ({{ hot_data.read_num }})
+                                    </li>
+                                {% empty %}
+                                    <li><br>暂时没有热门内容</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="container tab-pane" id="show_yesterday_heat">
+                        <div class="hot-data">
+                            <h3>昨日热门</h3>
+                            <ul>
+                                {% for hot_data in yesterday_hot_data%}
+                                    <li><a href="{% url 'blog:blog_detail' hot_data.content_object.pk %}">
+                                        {{ hot_data.content_object.title}}</a> ({{ hot_data.read_num }})
+                                    </li>
+                                {% empty %}
+                                    <li><br>昨日没有热门内容</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="container tab-pane" id="show_week_heat">
+                        <div class="hot-data">
+                            <h3>一周热门</h3>
+                            <ul>
+                                {% for hot_blog in week_hot_blogs %}
+                                    <li>
+                                        <a href="{% url 'blog:blog_detail' hot_blog.id %}">
+                                        {{ hot_blog.title }}</a> ({{ hot_blog.read_num_sum }})
+                                    </li>   
+                                {% empty %}
+                                    <li><br>近期没有热门内容</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 图表配置
+        var options = {
+            chart: { type: 'line' },
+            title: { text: '近7日阅读量' },
+            xAxis: {
+                categories: {{ dates|safe }},   // x 轴分类
+                tickmarkPlacement: 'on',
+            },
+            yAxis: {
+                title: { text: null },
+                labels:{ enabled: false },
+                gridLineDashStyle: 'Dash',
+            },
+            series: [{                              // 数据列
+                name: '阅读量',                     // 数据列名
+                data: {{ read_nums }}               // 数据
+            }],
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: { enabled: false },
+            credits: { enabled: false },
+        };
+        // 图表初始化函数
+        var chart = Highcharts.chart('show_heat_chart', options);
+    </script>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-4/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-4/css/webglyphicons.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/1.14.3-popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-4/js/bootstrap.min.js' %}"></script>
+    {% block header_extends %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navbar-dark bg-dark col-offset-1" id="navbarm">
+        <a class="navbar-brand" href="{% url 'home' %}">lranc</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbar-collapse" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="{% block nav_home_active %}{% endblock %}">
+                    <a class="nav-link" href="{% url 'home' %}">首页</a>
+                </li>
+                <li class="{% block nav_blog_active %}{% endblock %}">
+                    <a class="nav-link" href="{% url 'blog:blog_list' %}">文章</a>
+                </li>
+                <li class="">
+                    <a class="nav-link" href="#">API</a>
+                </li>
+                <li class="">
+
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}?next={{ request.get_full_path }}">登录</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:register' %}?next={{ request.get_full_path }}">注册</a>
+                    </li>  
+                {% else %}
+                    <li class="img-container">
+                        <img class="usericon" src="{{ MEDIA_URL }}{{ user.usericon }}">
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"> {{ user.get_nickname_or_username }} 
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" >
+                            <a class="dropdown-item" href="{% url 'users:user_info' %}">个人资料</a>
+                            <div class="dropdown-divider"></div>
+                            {% if user.is_staff or user.is_superuser %}
+                                <a class="dropdown-item" href="{% url 'admin:index' %}">后台管理</a>
+                                <div class="dropdown-divider"></div>
+                            {% endif %}
+                            <a class="dropdown-item" href="{% url 'users:logout' %}?next={{ request.get_full_path }}">退出</a>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="main_body">
+        {% block content %}
+        {% endblock %}
+        {% block tags %}
+        {% endblock %}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="login_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <form id="login_medal_form" action="" method="POST">
+                    <div class="modal-header">
+                        <h4 class="modal-title">登录</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% for field in login_model_form %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                        {% endfor %}
+                        <span id="login_medal_tip" class="text-danger"></span>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">登录</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div>
+            <p>
+                <span>总访问量：</span>
+            </p>
+        </div>
+        <div>
+            <p>赣ICP备18008822号</p>
+        </div>
+    </footer>
+</body>
+
+<script type="text/javascript">
+    $("#login_medal_form").submit(function(event){
+        event.preventDefault();
+        $.ajax({
+            url: '{% url "users:login_for_modal" %}',
+            type: 'POST',
+            data: $(this).serialize(),
+            cache: false,
+            success: function(data){
+                if(data['status']=='SUCCESS'){
+                    window.location.reload();
+                }else{
+                    $('#login_medal_tip').text('用户名或密码不正确');
+                }
+            }
+        });
+    });
+</script>
+
+{% block script_extends %}
+{% endblock %}
+
+</html>

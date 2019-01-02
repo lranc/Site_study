@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}lrnac | 登录{% endblock %}
+{% block nav_home_active %}active{% endblock %}
+{% block content %}
+    <div class="containter">
+        <div class="row">
+            <div class="col-md-4 offset-md-4" id="loginform">
+                {% if not user.is_authenticated %}
+                    <div class="card">
+                        <h3 class="card-header">登录</h3> 
+                        <div class="card-body">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+
+                                {% for field in login_form %}
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                    <p class="text-danger">{{ field.errors.as_text }}</p>
+                                {% endfor %}
+                                <span class="text-danger">{{ login_form.non_field_errors }}</span>
+                                <div class="clearfix"></div>
+                                <a href="{% url 'users:forgot_pwd' %}" class="float-left">忘记密码？</a>
+                                <button type="submit" value="登录" class="btn btn-primary float-right">登录</button> 
+                            </form>
+                        </div>
+                {% else %}
+                    <span>已登录，跳转到首页...</span>
+                    <script type="text/javascript">
+                        window.location.href = '/';
+                    </script>
+                {% endif %}              
+            </div>
+        </div>
+    </div>    
+{% endblock %}
