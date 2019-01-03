@@ -5,7 +5,7 @@ from blog.models import Blog, BlogType
 from read_statistic.models import ReadNum, ReadDetail
 from operation.models import LikeRecord, Comment
 from django.contrib.auth.models import Group, Permission
-from .models import UserProfile
+from .models import UserProfile, InvitationCode
 from xadmin.models import Log
 # 和X admin的view绑定
 from xadmin import views
@@ -55,6 +55,8 @@ class GlobalSettings(object):
                     LikeRecord, 'view'), 'url': self.get_model_url(LikeRecord, 'changelist')},
                 {'title': '用户评论', 'perm': self.get_model_perm(
                     Comment, 'view'), 'url': self.get_model_url(Comment, 'changelist')},
+                {'title': '邀请码', 'perm': self.get_model_perm(
+                    InvitationCode, 'view'), 'url': self.get_model_url(InvitationCode, 'changelist')},
             )},
             {'title': '系统管理', 'perm': self.get_model_perm(Permission, 'view'), 'menus': (
                 # {'title': '首页轮播', 'url': self.get_model_url(Banner, 'changelist')},
@@ -154,6 +156,9 @@ class UserProfileAdmin(object):
         return super(UserProfileAdmin, self).get_form_layout()
 
 
+class InvitationCodeAdmin(object):
+    list_display = ['code']
+
 # 将model与admin管理器进行关联注册, 先注销UserProfile
 # 但这种方法密码不能修改,很多默认的功能需要自己添加
 # 因此将xadmin/plugins/auth的UserAdmin复制并加以修改
@@ -165,3 +170,4 @@ class UserProfileAdmin(object):
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 # 将头部与脚部信息进行注册:
 xadmin.site.register(views.CommAdminView, GlobalSettings)
+xadmin.site.register(InvitationCode, InvitationCodeAdmin)
