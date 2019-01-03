@@ -34,7 +34,6 @@ router.register(r'novels', NovelViewSet, base_name='novels')
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
-    path('admin/', admin.site.urls),
     path('docs/', include_docs_urls(title='lranc文档')),
     path('api-auth/', include('rest_framework.urls')),
     re_path('^', include(router.urls), name='API'),
@@ -42,7 +41,7 @@ urlpatterns = [
     # 处理图片显示的url
     # 使用Django自带serve,传入参数告诉它去哪个路径找，我们有配置好的路径MEDIAROOT
     re_path('media/(?P<path>.*)',  serve, {"document_root": MEDIA_ROOT}),
-    path('home', HomeView.as_view(), name="home"),
+    path('home/', HomeView.as_view(), name="home"),
     path('user/', include('users.urls', namespace='users')),
     path('blog/', include('blog.urls', namespace='blog')),
     path('operation/', include('operation.urls', namespace='operation')),
