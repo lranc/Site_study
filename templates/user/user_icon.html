@@ -1,0 +1,11 @@
+{% extends 'user/user_base.html' %}
+
+{% block right_content %}
+    <span class="fisrt_level">我的头像</span>
+    <div class ="infos">
+        <div>
+            <img class="usericon_preview" width="150" height="150" src="{{ MEDIA_URL }}{{ user.usericon }}"></img>
+        </div>
+        <a href="{% url 'users:change_icon' %}" class="btn btn-outline-info"style="margin-bottom: 25px;">更换头像</a>
+    </div>
+{% endblock %}

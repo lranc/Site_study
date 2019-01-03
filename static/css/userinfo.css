@@ -1,0 +1,143 @@
+h3.header-content {
+    font-size: 250%;
+    text-align: center;
+    margin-top: 75pt;
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none !important;
+    color: #343a40;
+}
+
+#infobody {
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.14);
+    border: 1px solid #e1e2e5;
+    background: #fffdfc;
+    -webkit-box-shadow: 0 0 20px rgba(239,188,231,0.5);
+    margin-top: 150pt;
+}
+#left {
+   background: #fafafa;
+   border-right: 1px solid #e1e2e5;
+   padding: 0;
+}
+
+#right{
+    padding: 0;
+}
+.fisrt_level {
+    color: #343a40;
+    cursor: default;
+    padding-top: 7px;
+    font-size: 16px;
+    padding-bottom: 7px;
+    display: block;
+    line-height: 36px;
+    border-bottom: 1px solid #e1e2e5;
+    height: 50px;
+}
+#right .fisrt_level{
+    padding-left: 15px;
+    text-align: left;
+    color: #00a1d7;
+    border-left: 5px solid #00a1d7;
+}
+.info_list{
+    line-height: 48px;
+}
+
+.info_list li:hover {
+    background: #e1e4ea;
+    cursor: pointer;
+}
+
+
+.info_list a{
+    text-decoration: none;
+    color: #222;
+    text-align: center;
+    display: block; /*扩展到块*/
+
+}
+
+.active2 {
+    background-color: #00a1d7 !important;
+}
+.active2 a{
+    color: #fff;
+}
+
+.infos li{
+    line-height: 30px;
+    position: relative;
+    text-align: left;
+    margin-bottom: 22px;
+    padding-left: 35px;
+}
+
+.infos {
+    padding: 20px 20px 0;
+}
+
+.usericon_preview {
+    border: 1px solid #e5e9ef;
+    border-radius: 100px;
+    margin: 0 auto 4px;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+
+.usericon_new {
+    border: 1px solid #e5e9ef;
+    border-radius: 100px;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 0px 0px 15px 0px;
+    float: left;
+}
+
+.border-line {
+    height: 182px;
+    width: 1px;
+    background: #e5e9ef;
+}
+
+.first-change-lb {
+    cursor: pointer;
+    background: #f1f2f5;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #e5e9ef;
+    border-radius: 4px;
+    -webkit-transition: all .6s ease;
+    transition: all .6s ease;
+}
+
+.first-change-lb i{
+    background-image: url(/static/img/icons_m_2.57e5263.png);
+    background-position: -101px -1065px;
+    display: block;
+    width: 54px;
+    height: 46px;
+    margin: 52px auto 0;
+}
+
+.first-change-lb span{
+    display: block;
+    font-family: MicrosoftYaHei;
+    font-size: 16px;
+    color: #6d757a;
+    line-height: 20px;
+    margin-top: 10px;
+    padding: 0 12px;
+    letter-spacing: 0;
+}

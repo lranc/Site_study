@@ -1,0 +1,40 @@
+<ul class="pagination justify-content-center">
+    {% if datas.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?{{ datas.previous_page_number.querystring }}" tabindex="-1">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <span class="page-link" aria-hidden="true">&laquo;</span>
+        </li>
+    {% endif %}
+
+    {% for page_num in datas.pages %}
+        {% if page_num %}
+            {% ifequal page_num datas.number %}
+                <li class="page-item "><span></span></li>
+                <li class="page-item active"><a class="page-link">{{ page_num }}</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?{{ page_num.querystring }}">{{ page_num }}</a>
+                </li>
+            {% endifequal %}
+        {% else %}
+            <li class="page-item"><a class="page-link" href="#">...</a></li>
+        {% endif %}
+    {% endfor %}
+
+    {% if datas.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?{{ datas.next_page_number.querystring }}">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <span class="page-link" aria-hidden="true">&raquo;</span>
+        </li>
+    {% endif %}
+
+</ul>

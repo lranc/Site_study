@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}个人资料{% endblock %}
+{% block header_extends %}<link rel="stylesheet" href="{% static 'css/userinfo.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row", id="infobody" style="text-align: center">
+            <div class="col-md-2" id='left'>
+                <span class='fisrt_level'>个人中心</span>
+                <ul class="info_list">
+                    <li {% ifequal '/user/info/' request.path %} class="active2" {% endifequal %}>
+                        <a href="{% url 'users:user_info' %}">个人资料</a>
+                    </li>
+                    <li {% ifequal '/user/icon/' request.path|slice:'11' %} class="active2" {% endifequal %}>
+                        <a href="{% url 'users:user_icon' %}">我的头像</a>
+                    </li>
+                   <li><a href="#">收藏书籍</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-md-10" id='right'>
+                {% block right_content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

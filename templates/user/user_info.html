@@ -1,0 +1,11 @@
+{% extends 'user/user_base.html' %}
+
+{% block right_content %}
+    <span class="fisrt_level">个人资料</span>
+    <ul class ="infos">
+        <li>我的昵称：{{ user.nickname }}</li>
+        <li>用户名：{{ user.username }}</li>
+        <li>邮箱：{% if user.email %}{{ user.email }}{% else %}未绑定 <a href="{% url 'home' %}?next={{ request.get_full_path }}">绑定邮箱</a>{% endif %}</li>
+        <li>上一次登录的时间：{{ user.last_login|date:"Y-m-d H:i:s" }}</li>
+    </ul>
+{% endblock %}

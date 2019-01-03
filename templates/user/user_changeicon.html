@@ -1,0 +1,81 @@
+{% extends 'user/user_base.html' %}
+
+{% block right_content %}
+    <span class="fisrt_level">
+        <a href="{% url 'users:user_icon' %}">我的头像</a>
+        >&nbsp;更换头像
+    </span>
+    <div class ="infos">
+        <div class="row">
+            <div class="col-sm-3 offset-sm-3">
+                <label data-toggle="modal" data-target="#filemodal" class="first-change-lb">
+                    <i class="Imgaeprew"></i>
+                    <span>选择图片</span>
+            </div>
+            <div class="border-line"></div>
+            <div class="col-sm-3">
+                <div>
+                    <img class="usericon_new" src="{{ MEDIA_URL }}{{ user.usericon }}"></img>
+                    <span class="text-center">当前头像</span>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-outline-info" style="margin-bottom: 25px;" onclick="FileUpload()">更新</button>
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="filemodal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">上传新头像</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info" role="alert">
+                    <div>请选择新头像</div>
+                </div>
+                <input style="text-align: center;" type="file" id="FILE"/></textarea>
+                {% csrf_token %}
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button id="delConfirm" type="button" class="btn btn-danger" onclick="Imgaeprew()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script_extends %}
+<script type="text/javascript">
+    // 一系列判断头像处理
+    function Imgaeprew() {
+        // $('#FILE').modal('hide').val('')  // 清除input的内容
+        $('#filemodal').modal('hide');  // 关闭模态框
+    }
+    function FileUpload() {
+            var form_data = new FormData();
+            var file_info = $('#FILE')[0].files[0];
+            form_data.append('usericon',file_info);  // django 的form 通过usericon字段获取图片文件
+            form_data.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+            $.ajax({
+                url:'{% url "users:change_icon" %}',
+                type:'POST',
+                data: form_data,
+                processData: false,  // tell jquery not to process the data
+                contentType: false, // tell jquery not to set contentType
+                success: function(data){
+                    if(data['status']=='SUCCESS'){
+                        alert('上传成功')
+                        window.location.reload(); // 上传成功后刷新页面
+                    }else{
+                        alert('上传失败, 请检查文件格式');
+                    }
+                }
+            });
+
+        }
+</script>
+{% endblock %}
