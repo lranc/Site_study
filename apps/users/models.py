@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
+from django.utils import timezone
 # from operation.models import UserMessage
 
 
@@ -46,3 +47,19 @@ class InvitationCode(models.Model):
     class Meta:
         verbose_name = "邀请码"
         verbose_name_plural = verbose_name
+
+
+class VerifyCode(models.Model):
+    """
+    验证码
+    """
+    code = models.CharField("验证码", max_length=10)
+    mobile = models.CharField("电话", max_length=11)
+    add_time = models.DateTimeField("添加时间",  default=timezone.now)
+
+    class Meta:
+        verbose_name = "短信验证"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.code

@@ -7,25 +7,32 @@ from django.views.generic import View
 from django.urls import reverse
 from .forms import LoginForm, ForgotPasswordForm, RegisterForm, UploadImageForm
 from django.contrib import auth
-from .models import UserProfile
+from users.models import UserProfile, VerifyCode
 from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from rest_framework.mixins import CreateModelMixin
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework import status
+from users.serializers import SmsSerializer
+from utils.send_sms import TenMessage
+from lranc_site.settings import AppID, AppKey
 # Create your views here.
 
 # 实现用户名邮箱均可登录
-# 继承ModelBackend类，因为它有方法authenticate，可点进源码查看
-
-
+# 继承ModelBackend类，因为它有方法authenticate，可进源码查看
 class CustomBackend(ModelBackend):
+    '''
+    自定义用户认证
+    '''
     def authenticate(self, username=None, password=None, **kwargs):
         try:
             # 不希望用户存在两个，get只能有一个。两个是get失败的一种原因 Q为使用并集查询
             user = UserProfile.objects.get(
-                Q(username=username) | Q(email=username))
+                Q(username=username) | Q(email=username)|Q(mobile=username))
             # django的后台中密码加密：所以不能password==password
             # UserProfile继承的AbstractUser中有def check_password(self,
             # raw_password):
@@ -94,6 +101,37 @@ class RegisterView(View):
         return render(request, 'user/register.html', context)
 
 
+class SmsCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
+    '''
+    手机验证码
+    '''
+    serializer_class = SmsSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        # 序列化验证是否合法
+        serializer.is_valid(raise_exception=True)
+
+        mobile = serializer.validated_data["mobile"]
+
+        ten_sms = TenMessage(AppID, AppKey)
+        # 生成验证码
+        code = str(random.randint(1000, 9999))
+
+        sms_status = ten_sms.send_sms(code=code, mobile=mobile)
+
+        if sms_status["result"] != 0:
+            return Response({
+                "mobile": sms_status["errmsg"]
+            }, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            code_record = VerifyCode(code=code, mobile=mobile)
+            code_record.save()
+            return Response({
+                "mobile": mobile
+            }, status=status.HTTP_201_CREATED)
+
+
 class LogoutView(LoginRequiredMixin, View):
     # 登出, 不需要跳转到登录
     redirect_field_name = 'next'
@@ -154,8 +192,6 @@ class ChangeIcon(LoginRequiredMixin, View):
         return JsonResponse(data)
 
 
-def user_info(request):
-    pass
 
 
 def send_verification_code(request):
