@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import sys
 import datetime
-from .config import secret_keys, mongo_config, mysql_config, appid, appkey, debug, email_pass
+from .config import secret_keys, mongo_config, mysql_config, appid, appkey,\
+                    debug, email_pass, redis_uri, redispass
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -225,6 +226,15 @@ REST_FRAMEWORK = {
     # 'SEARCH_PARAM': 'q',
     # 定义rest_framework的filter的order字段名
     'ORDERING_PARAM': 'orderby',
+    # 限速设置
+    'DEFAULT_THROTTLE_CLASSES': (
+            'rest_framework.throttling.AnonRateThrottle',  # 未登陆用户
+            'rest_framework.throttling.UserRateThrottle'  # 登陆用户
+        ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '3/minute',  # 每分钟可以请求两次
+        'user': '5/minute'  # 每分钟可以请求五次
+    },
 }
 
 # jwt有效期限
@@ -235,11 +245,15 @@ JWT_AUTH = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-# 缓存设置
+# 缓存设置, 并使用redis
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'my_cache_table',
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": redis_uri,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD": redispass,
+        }
     }
 }
 
@@ -247,3 +261,8 @@ REGEX_MOBILE = r"^1[358]\d{9}$|^147\d{8}$|^176\d{8}$"
 
 AppID = appid
 AppKey = appkey
+
+
+REST_FRAMEWORK_EXTENSIONS = {
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60  # drf缓存60秒过期
+    }

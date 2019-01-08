@@ -7,12 +7,15 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.response import Response
 from .filters import NovelFilter
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 
 class NovelTagsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     '''
     标签分类
     '''
+    throttle_classes = (UserRateThrottle, AnonRateThrottle)
     queryset = NovelTags.objects.all()
     serializer_class = NovelTagsSerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
@@ -22,11 +25,12 @@ class NovelTagsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     filter_fields = ('novel_tag',)
 
 
-class NovelViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class NovelViewSet(CacheResponseMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     '''
     作品列表
     '''
-    queryset = Novel.objects.all()[:]
+    throttle_classes = (UserRateThrottle, AnonRateThrottle)
+    queryset = Novel.objects.all().order_by('novel_id')
     serializer_class = NovelSerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     search_fields = ('=novel_id', 'novel_name')

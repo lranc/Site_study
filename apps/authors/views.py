@@ -8,6 +8,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.response import Response
 from .filters import AuthorReaderFilter, NovelAuthorFilter
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 
 class AuthorsPagination(PageNumberPagination):
@@ -24,12 +26,13 @@ class AuthorsPagination(PageNumberPagination):
     max_page_size = 30
 
 
-class NovelAuthorsViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class NovelAuthorsViewSet(CacheResponseMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     作者列表页
     """
     # 使用django-filter的DjangoFilterBackend, 进行过滤
     # 使用filters.SearchFilter, filters.OrderingFilter进行搜索和排序
+    throttle_classes = (UserRateThrottle, AnonRateThrottle)
     queryset = NovelAuthor.objects.all()
     pagination_class = AuthorsPagination
     serializer_class = NovelAuthorSerializer
@@ -48,10 +51,11 @@ class NovelAuthorsViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
         return Response(serializer.data)
 
 
-class AuthorReaderViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class AuthorReaderViewSet(CacheResponseMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     '''
     作者的读者排行
     '''
+    throttle_classes = (UserRateThrottle, AnonRateThrottle)
     queryset = AuthorReader.objects.all().order_by('author_id')
     serializer_class = AuthorReaderSerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
