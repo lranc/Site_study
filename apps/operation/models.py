@@ -1,7 +1,9 @@
 from django.db import models
 from users.models import UserProfile
+from novels.models import Novel
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
 
 
 # Create your models here.
@@ -14,6 +16,23 @@ class UserMessage(models.Model):
     class Meta:
         verbose_name = "用户消息"
         verbose_name_plural = verbose_name
+
+
+class UserFavNovel(models.Model):
+    """
+    用户收藏作品
+    """
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="用户")
+    novel = models.ForeignKey(Novel, on_delete=models.CASCADE, verbose_name="作品", help_text="作品id")
+    add_time = models.DateTimeField("添加时间", default=timezone.now)
+
+    class Meta:
+        verbose_name = '用户收藏作品'
+        verbose_name_plural = verbose_name
+        unique_together = ("user", "novel")
+
+    def __str__(self):
+        return self.user.username
 
 
 class LikeCount(models.Model):

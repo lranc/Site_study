@@ -53,6 +53,9 @@ class Novel(models.Model):
     chapter_count = models.IntegerField(verbose_name='章节数量')
     click_num = models.IntegerField(default=0, verbose_name="点击数", help_text='点击数')
 
+    def __str__(self):
+        return self.novel_name
+
 
 class NovelTags(models.Model):
 

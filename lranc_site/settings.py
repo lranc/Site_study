@@ -1,4 +1,3 @@
-from mongoengine import connect
 """
 Django settings for lranc_site project.
 
@@ -14,7 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import sys
 import datetime
-from .config import secret_keys, mongo_config, mysql_config, appid, appkey, debug
+from .config import secret_keys, mongo_config, mysql_config, appid, appkey, debug, email_pass
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -51,12 +50,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'django_filters',
-    'read_statistic',
-    'users',
-    'blog',
-    'operation',
+    'users.apps.UsersConfig',
+    'operation.apps.OperationConfig',
     'novels.apps.NovelsConfig',
-    'authors.apps.AuthorsConfig'
+    'authors.apps.AuthorsConfig',
+    'trades.apps.TradesConfig'
 ]
 
 # 设置邮箱和用户名均可登录
@@ -94,7 +92,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                'users.context_processors.login_model_form',  # 使用user的context_procesors的登录
             ],
         },
     },
@@ -211,7 +208,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'testzzaaqq@163.com'
-EMAIL_HOST_PASSWORD = '1ucfpcafrgs'  # 授权码
+EMAIL_HOST_PASSWORD = email_pass  # 授权码
 EMAIL_SUBJECT_PREFIX = '[Lranc] '
 EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
 
@@ -220,9 +217,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'PAGE_SIZE': 10,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     # 定义rest_framework的filter的search字段名
     # 'SEARCH_PARAM': 'q',

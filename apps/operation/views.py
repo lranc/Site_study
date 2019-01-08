@@ -1,114 +1,73 @@
-from django.contrib.contenttypes.models import ContentType
-from django.http import JsonResponse
-from django.db.models import ObjectDoesNotExist
-from .models import LikeCount, LikeRecord, Comment
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View
-from .forms import CommentForm
+# -*- coding:utf-8 -*-
+
+from rest_framework import viewsets, mixins
+from operation.models import UserFavNovel, Comment
+from operation.serializers import UserFavNovelsSerializer, \
+                                UserFavNovelDetailSerializer, \
+                                CommentSerializer
+from rest_framework.permissions import IsAuthenticated
+from utils.permissions import IsOwnerOrReadOnly
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework.authentication import SessionAuthentication
 
 
-def ErrorResponse(code, message):
-    data = {}
-    data['status'] = 'ERROR'
-    data['code'] = code
-    data['message'] = message
-    return JsonResponse(data)
+class UserFavNovelsViewset(
+        mixins.ListModelMixin, mixins.CreateModelMixin,
+        mixins.DestroyModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+        获取用户收藏列表
+    retrieve:
+        判断某个商品是否已经收藏
+    create:
+        收藏作品
+    """
+    # permission_classes权限认证
+    # IsAuthenticated：用户必须登录；IsOwnerOrReadOnly：用户必须是当前登录的
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    queryset = UserFavNovel.objects.all()
+    # JSONWebTokenAuthentication认证不应该全局配置, 局部模块才需要
+    # authentication_classes用户认证
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    # 搜索的字段
+    lookup_field = 'novel_id'
+
+    # 动态选择serializer
+    def get_serializer_class(self):
+        if self.action == "list":
+            return UserFavNovelDetailSerializer
+        elif self.action == "create":
+            return UserFavNovelsSerializer
+        return UserFavNovelDetailSerializer
+
+    def get_queryset(self):
+        # 只能查看当前登录用户的收藏，不会获取所有用户的收藏
+        return UserFavNovel.objects.filter(user=self.request.user)
+
+    #  用户收藏的作品数量+1  用信号量实现了
+    # def perform_create(self, serializer):
+    #     instance = serializer.save()
+    #     # 这里instance相当于UserFav model，通过它找到novel
+    #     novel = instance.novel
+    #     novel.fav_num += 1
+    #     novel.save()
 
 
-def SuccessResponse(liked_num):
-    data = {}
-    data['status'] = 'SUCCESS'
-    data['liked_num'] = liked_num
-    return JsonResponse(data)
+class CommentViewset(
+        mixins.ListModelMixin, mixins.DestroyModelMixin,
+        mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+        获取用户评论
+    create:
+        添加评论
+    delete:
+        删除评论
+    """
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    serializer_class = CommentSerializer
 
-
-class LikeView(View):
-    '''
-    添加喜欢与取消喜欢
-    '''
-    def get(self, request):
-        user = request.user
-        if not user.is_authenticated:
-            return ErrorResponse(400, 'you were not login')
-        content_type = request.GET.get('content_type')
-        object_id = int(request.GET.get('object_id'))
-        try:
-            content_type = ContentType.objects.get(model=content_type)
-            model_class = content_type.model_class()
-            model_obj = model_class.objects.get(pk=object_id)
-        except ObjectDoesNotExist:
-            return ErrorResponse(401, 'object not exist')
-
-        # 处理数据
-        if request.GET.get('is_like') == 'true':
-            # 进行点赞判断
-            like_record, created = LikeRecord.objects.get_or_create(
-                content_type=content_type, object_id=object_id, user=user)
-            if created:
-                # 未进行过点赞
-                like_count, created = LikeCount.objects.get_or_create(
-                    content_type=content_type, object_id=object_id)
-                like_count.liked_num += 1
-                like_count.save()
-                return SuccessResponse(like_count.liked_num)
-            else:
-                # 已点赞过,不能重复点赞
-                return ErrorResponse(402, 'you had liked')
-
-        else:
-            # 取消点赞
-            if LikeRecord.objects.filter(content_type=content_type, object_id=object_id, user=user).exists():
-                # 有过点赞,取消点赞
-                like_record = LikeRecord.objects.get(
-                    content_type=content_type, object_id=object_id, user=user)
-                like_record.delete()
-                # 点赞总数减1
-                like_count, created = LikeCount.objects.get_or_create(
-                    content_type=content_type, object_id=object_id)
-                if not created:
-                    like_count.liked_num -= 1
-                    like_count.save()
-                    return SuccessResponse(like_count.liked_num)
-                else:
-                    return ErrorResponse(404, 'data error')
-            else:
-                # 没点赞过,无法取消
-                return ErrorResponse(403, 'you did not like it')
-
-
-class AddComment(LoginRequiredMixin, View):
-    login_url = '/user/login/'
-    redirect_field_name = 'next'
-
-    def post(self, request):
-        data = {}
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = Comment()
-            comment.user = request.user
-            comment.text = comment_form.cleaned_data['text']
-            comment.content_object = comment_form.cleaned_data['content_object']
-            parent = comment_form.cleaned_data['parent']
-            if parent is not None:
-                comment.root = parent.root if parent.root is not None else parent
-                comment.parent = parent
-                comment.reply_to = parent.user
-            comment.save()
-            # 返回数据
-            data['status'] = 'SUCCESS'
-            data['username'] = comment.user.get_nickname_or_username()
-            data['comment_time'] = comment.comment_time.timestamp()
-            data['text'] = comment.text
-            data['content_type'] = ContentType.objects.get_for_model(
-                comment).model
-            data['user_icon'] = comment.user.usericon.url
-            if parent is not None:
-                data['reply_to'] = comment.reply_to.get_nickname_or_username()
-            else:
-                data['reply_to'] = ''
-            data['pk'] = comment.pk
-            data['root_pk'] = comment.root.pk if comment.root is not None else ''
-        else:
-            data['status'] = 'ERROR'
-            data['message'] = list(comment_form.errors.values())[0][0]
-        return JsonResponse(data)
+    # 只能看到自己的评论
+    def get_queryset(self):
+        return Comment.objects.filter(user=self.request.user)

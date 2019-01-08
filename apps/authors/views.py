@@ -38,6 +38,7 @@ class NovelAuthorsViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
     search_fields = ('=author_id', 'author_name')
     ordering_fields = ('author_id', 'collected_num', 'send_gift', 'click_num')
     filter_class = NovelAuthorFilter
+
     def retrieve(self, request, *args, **kwargs):
         # 记录点击数
         instance = self.get_object()

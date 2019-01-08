@@ -11,7 +11,7 @@ class UserProfile(AbstractUser):
         max_length=10, verbose_name='昵称', default='', null=True, blank=True)
     gender = models.CharField(
         max_length=6, choices=(("male", "男"), ("female", "女")),
-        default="female", verbose_name='性别')
+        default="male", verbose_name='性别')
     mobile = models.CharField(
         max_length=11, null=True, blank=True, verbose_name='手机')
     # user_sign # 个性签名

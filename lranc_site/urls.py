@@ -1,58 +1,52 @@
-"""lranc_site URL Configuration
+# -*- coding:utf8 -*-
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 import xadmin
 from django.urls import path, include, re_path
 from django.views.static import serve
 from lranc_site.settings import MEDIA_ROOT
-from .views import HomeView
 from django.views.generic import RedirectView
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from authors.views import NovelAuthorsViewSet, AuthorReaderViewSet
 from novels.views import NovelTagsViewSet, NovelViewSet
-from users.views import SmsCodeViewset
+from users.views import SmsCodeViewset, UserViewset
+from operation.views import UserFavNovelsViewset, CommentViewset
+from trades.views import ShoppingCartViewset, OrderViewset
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
 
+
 router = DefaultRouter()
 # 配置authors的url
-router.register(r'authors', NovelAuthorsViewSet, base_name='authors')
-router.register(r'rankreaders', AuthorReaderViewSet, base_name='rankreaders')
-router.register(r'noveltags', NovelTagsViewSet, base_name='rankreaders')
-router.register(r'novels', NovelViewSet, base_name='novels')
-# 注册验证码VerifyCode的url
-router.register(r'verifycode', SmsCodeViewset, base_name="verifycode")
+router.register('authors', NovelAuthorsViewSet, base_name='authors')
+router.register('rankreaders', AuthorReaderViewSet, base_name='rankreaders')
+router.register('noveltags', NovelTagsViewSet, base_name='rankreaders')
+router.register('novels', NovelViewSet, base_name='novels')
+# 验证码VerifyCode的url
+router.register('verifycode', SmsCodeViewset, base_name="verifycode")
+# 用户url
+router.register('users', UserViewset, base_name="users")
+# 用户收藏作品url
+router.register('favnovels', UserFavNovelsViewset, base_name="favnovels")
+# 用户评论
+router.register('usercomment', CommentViewset, base_name="usercomment")
+# 购物车url
+router.register('shopcarts', ShoppingCartViewset, base_name="shopcarts")
+# 订单url
+router.register('orders', OrderViewset, base_name="orders")
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     path('docs/', include_docs_urls(title='lranc文档')),
     path('api-auth/', include('rest_framework.urls')),
-    re_path('^', include(router.urls), name='API'),
+    re_path('^', include(router.urls), name='Lranc'),
     # drf自带的token授权登录,获取token需要向该地址post数据
     path('api-token-auth/', views.obtain_auth_token),
     # jwt 认证
     path('login/', obtain_jwt_token),
-
     # 配置上传文件的访问处理函数, 处理图片显示的url
     # 使用Django自带serve,传入参数告诉它去哪个路径找，我们有配置好的路径MEDIAROOT
     re_path('media/(?P<path>.*)',  serve, {"document_root": MEDIA_ROOT}),
-    path('home/', HomeView.as_view(), name="home"),
-    path('user/', include('users.urls', namespace='users')),
-    path('blog/', include('blog.urls', namespace='blog')),
-    path('operation/', include('operation.urls', namespace='operation')),
     # 验证码url
     path("captcha/", include('captcha.urls')),
     path('favicon.ico', RedirectView.as_view(url='/static/img/favicon.ico')),
