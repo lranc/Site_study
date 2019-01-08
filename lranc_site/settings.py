@@ -226,11 +226,11 @@ REST_FRAMEWORK = {
     # 'SEARCH_PARAM': 'q',
     # 定义rest_framework的filter的order字段名
     'ORDERING_PARAM': 'orderby',
-    # 限速设置
-    'DEFAULT_THROTTLE_CLASSES': (
-            'rest_framework.throttling.AnonRateThrottle',  # 未登陆用户
-            'rest_framework.throttling.UserRateThrottle'  # 登陆用户
-        ),
+    # 全局限速设置
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #         'rest_framework.throttling.AnonRateThrottle',  # 未登陆用户
+    #         'rest_framework.throttling.UserRateThrottle'  # 登陆用户
+    #     ),
     'DEFAULT_THROTTLE_RATES': {
         'anon': '3/minute',  # 每分钟可以请求两次
         'user': '5/minute'  # 每分钟可以请求五次
