@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
-from rest_framework import viewsets, mixins
+import logging
+from rest_framework import viewsets, mixins, status
 from operation.models import UserFavNovel, Comment
 from operation.serializers import UserFavNovelsSerializer, \
                                 UserFavNovelDetailSerializer, \
@@ -9,6 +10,9 @@ from rest_framework.permissions import IsAuthenticated
 from utils.permissions import IsOwnerOrReadOnly
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authentication import SessionAuthentication
+
+
+logger = logging.getLogger("django")
 
 
 class UserFavNovelsViewset(
@@ -71,3 +75,25 @@ class CommentViewset(
     # 只能看到自己的评论
     def get_queryset(self):
         return Comment.objects.filter(user=self.request.user)
+
+from rest_framework.views import APIView
+from django_redis import get_redis_connection
+from utils.captcha.captcha import captcha
+from django.http import HttpResponse
+from rest_framework.response import Response
+class VerifycodeViewSet(viewsets.ViewSet):
+    """
+    需要与前端结合, 生成唯一uuid图片验证码
+    """
+    def list(self, request):
+
+        # 生成验证码图片
+        text, image = captcha.generate_captcha()
+
+        # 保存验证码内容(为的是后面做校验)
+        redis_conn = get_redis_connection('verify_codes')
+        redis_conn.setex("img_%s" % 'pk', 300, text)
+        logger.info(f"图片验证码内容:[image_code: {text}]")
+
+        # 返回验证码图片
+        return HttpResponse(image, content_type='image/jpg')

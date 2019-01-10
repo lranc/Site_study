@@ -1,0 +1,628 @@
+INFO 2019-01-10 15:10:52,435 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 15:10:52,636 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2019-01-10 15:10:52,667 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1131
+INFO 2019-01-10 15:10:52,684 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:10:52,739 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:10:52,778 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:10:52,872 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:10:52,907 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:10:52,923 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:10:53,370 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286
+ERROR 2019-01-10 15:10:53,386 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 500 59
+INFO 2019-01-10 15:11:06,152 basehttp 124 "GET /authors/ HTTP/1.1" 200 19593
+INFO 2019-01-10 15:11:06,298 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 8192
+ERROR 2019-01-10 15:11:06,312 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 500 59
+INFO 2019-01-10 15:11:06,394 basehttp 124 "GET /static/rest_framework/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1" 200 18028
+INFO 2019-01-10 15:11:06,466 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2019-01-10 15:11:06,481 basehttp 124 "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2019-01-10 15:11:08,437 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286
+ERROR 2019-01-10 15:11:08,451 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 500 59
+ERROR 2019-01-10 15:11:45,852 exception 118 Internal Server Error: /verifycodes/
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+TypeError: get() missing 1 required positional argument: 'image_code_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 183, in import_from_string
+    module = import_module(module_path)
+  File "E:\Envs\lranc\lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 953, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'globalutils.exceptions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\generic\base.py", line 69, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 449, in handle_exception
+    exception_handler = self.get_exception_handler()
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 300, in get_exception_handler
+    return self.settings.EXCEPTION_HANDLER
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 227, in __getattr__
+    val = perform_import(val, attr)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 170, in perform_import
+    return import_from_string(val, setting_name)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 187, in import_from_string
+    raise ImportError(msg)
+ImportError: Could not import 'globalutils.exceptions.exception_handler' for API setting 'EXCEPTION_HANDLER'. ModuleNotFoundError: No module named 'globalutils.exceptions'.
+ERROR 2019-01-10 15:11:45,928 basehttp 124 "GET /verifycodes/ HTTP/1.1" 500 120630
+ERROR 2019-01-10 15:13:02,973 exception 118 Internal Server Error: /verifycodes/
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+TypeError: get() missing 1 required positional argument: 'image_code_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 183, in import_from_string
+    module = import_module(module_path)
+  File "E:\Envs\lranc\lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 953, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'globalutils.exceptions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\generic\base.py", line 69, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 449, in handle_exception
+    exception_handler = self.get_exception_handler()
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 300, in get_exception_handler
+    return self.settings.EXCEPTION_HANDLER
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 227, in __getattr__
+    val = perform_import(val, attr)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 170, in perform_import
+    return import_from_string(val, setting_name)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 187, in import_from_string
+    raise ImportError(msg)
+ImportError: Could not import 'globalutils.exceptions.exception_handler' for API setting 'EXCEPTION_HANDLER'. ModuleNotFoundError: No module named 'globalutils.exceptions'.
+ERROR 2019-01-10 15:13:03,036 basehttp 124 "GET /verifycodes/ HTTP/1.1" 500 120765
+ERROR 2019-01-10 15:13:34,095 exception 118 Internal Server Error: /verifycodes/
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+TypeError: get() missing 1 required positional argument: 'image_code_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 183, in import_from_string
+    module = import_module(module_path)
+  File "E:\Envs\lranc\lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 953, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'globalutils.exceptions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\generic\base.py", line 69, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 449, in handle_exception
+    exception_handler = self.get_exception_handler()
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 300, in get_exception_handler
+    return self.settings.EXCEPTION_HANDLER
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 227, in __getattr__
+    val = perform_import(val, attr)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 170, in perform_import
+    return import_from_string(val, setting_name)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 187, in import_from_string
+    raise ImportError(msg)
+ImportError: Could not import 'globalutils.exceptions.exception_handler' for API setting 'EXCEPTION_HANDLER'. ModuleNotFoundError: No module named 'globalutils.exceptions'.
+ERROR 2019-01-10 15:13:34,207 basehttp 124 "GET /verifycodes/ HTTP/1.1" 500 120765
+INFO 2019-01-10 15:13:35,887 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 8192
+ERROR 2019-01-10 15:13:35,900 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 500 59
+ERROR 2019-01-10 15:14:11,545 exception 118 Internal Server Error: /verifycodes/
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+TypeError: get() missing 1 required positional argument: 'image_code_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 183, in import_from_string
+    module = import_module(module_path)
+  File "E:\Envs\lranc\lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 953, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'globalutils.defineexceptions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\generic\base.py", line 69, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 449, in handle_exception
+    exception_handler = self.get_exception_handler()
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 300, in get_exception_handler
+    return self.settings.EXCEPTION_HANDLER
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 227, in __getattr__
+    val = perform_import(val, attr)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 170, in perform_import
+    return import_from_string(val, setting_name)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 187, in import_from_string
+    raise ImportError(msg)
+ImportError: Could not import 'globalutils.defineexceptions.exception_handler' for API setting 'EXCEPTION_HANDLER'. ModuleNotFoundError: No module named 'globalutils.defineexceptions'.
+ERROR 2019-01-10 15:14:11,717 basehttp 124 "GET /verifycodes/ HTTP/1.1" 500 120990
+ERROR 2019-01-10 15:14:20,515 exception 118 Internal Server Error: /verifycodes/
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+TypeError: get() missing 1 required positional argument: 'image_code_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 183, in import_from_string
+    module = import_module(module_path)
+  File "E:\Envs\lranc\lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 994, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 971, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 953, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'globalutils.defineexceptions'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\generic\base.py", line 69, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 449, in handle_exception
+    exception_handler = self.get_exception_handler()
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 300, in get_exception_handler
+    return self.settings.EXCEPTION_HANDLER
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 227, in __getattr__
+    val = perform_import(val, attr)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 170, in perform_import
+    return import_from_string(val, setting_name)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\settings.py", line 187, in import_from_string
+    raise ImportError(msg)
+ImportError: Could not import 'globalutils.defineexceptions.exception_handler' for API setting 'EXCEPTION_HANDLER'. ModuleNotFoundError: No module named 'globalutils.defineexceptions'.
+ERROR 2019-01-10 15:14:20,582 basehttp 124 "GET /verifycodes/ HTTP/1.1" 500 120990
+ERROR 2019-01-10 15:14:40,106 exception 118 Internal Server Error: /verifycodes/
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\generic\base.py", line 69, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+TypeError: get() missing 1 required positional argument: 'image_code_id'
+ERROR 2019-01-10 15:14:40,280 basehttp 124 "GET /verifycodes/ HTTP/1.1" 500 90309
+INFO 2019-01-10 15:14:40,474 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2019-01-10 15:14:40,492 basehttp 124 "GET /favicon.ico HTTP/1.1" 500 59
+WARNING 2019-01-10 15:16:03,626 base 93 Not Found: /verifycodes/
+WARNING 2019-01-10 15:16:03,627 basehttp 124 "GET /verifycodes/ HTTP/1.1" 404 10833
+INFO 2019-01-10 15:16:08,081 views 91 图片验证码内容:[image_code: WY7M]
+INFO 2019-01-10 15:16:08,084 basehttp 124 "GET /verifycodes/1 HTTP/1.1" 200 3438
+INFO 2019-01-10 15:16:14,991 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 15:16:15,120 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 8192
+ERROR 2019-01-10 15:16:15,150 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 500 59
+INFO 2019-01-10 15:22:07,837 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2019-01-10 15:22:07,851 basehttp 124 "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2019-01-10 15:22:27,016 views 91 图片验证码内容:[image_code: RAL4]
+INFO 2019-01-10 15:22:27,018 basehttp 124 "GET /verifycodes/1 HTTP/1.1" 200 3078
+INFO 2019-01-10 15:23:51,742 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2019-01-10 15:23:51,771 basehttp 124 "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2019-01-10 15:23:55,019 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 8192
+ERROR 2019-01-10 15:23:55,045 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 500 59
+INFO 2019-01-10 15:24:00,038 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 15:24:02,793 basehttp 124 "GET /authors/ HTTP/1.1" 200 19593
+INFO 2019-01-10 15:24:28,063 views 91 图片验证码内容:[image_code: JWYE]
+INFO 2019-01-10 15:24:28,065 basehttp 124 "GET /verifycodes/1 HTTP/1.1" 200 2945
+INFO 2019-01-10 15:26:47,058 views 91 图片验证码内容:[image_code: N3UV]
+INFO 2019-01-10 15:26:47,060 basehttp 124 "GET /verifycodes/132312 HTTP/1.1" 200 2900
+INFO 2019-01-10 15:27:24,060 basehttp 124 "GET /docs HTTP/1.1" 301 0
+INFO 2019-01-10 15:27:31,785 basehttp 124 "GET /docs/ HTTP/1.1" 200 184775
+INFO 2019-01-10 15:27:31,935 basehttp 124 "GET /static/rest_framework/css/bootstrap-theme.min.css HTTP/1.1" 200 124939
+INFO 2019-01-10 15:27:31,975 basehttp 124 "GET /static/rest_framework/css/font-awesome-4.0.3.css HTTP/1.1" 200 21658
+INFO 2019-01-10 15:27:31,989 basehttp 124 "GET /static/rest_framework/docs/css/base.css HTTP/1.1" 304 0
+INFO 2019-01-10 15:27:32,036 basehttp 124 "GET /static/rest_framework/js/coreapi-0.1.1.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:27:32,036 basehttp 124 "GET /static/rest_framework/docs/css/jquery.json-view.min.css HTTP/1.1" 304 0
+INFO 2019-01-10 15:27:32,057 basehttp 124 "GET /docs/schema.js HTTP/1.1" 200 21444
+INFO 2019-01-10 15:27:32,085 basehttp 124 "GET /static/rest_framework/docs/js/jquery.json-view.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:27:32,136 basehttp 124 "GET /static/rest_framework/docs/js/api.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:27:34,660 basehttp 124 "GET /static/rest_framework/fonts/fontawesome-webfont.woff?v=4.0.3 HTTP/1.1" 200 44432
+INFO 2019-01-10 15:27:34,709 basehttp 124 "GET /docs/schema.js HTTP/1.1" 200 21444
+INFO 2019-01-10 15:28:04,399 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 15:28:04,613 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2019-01-10 15:28:04,642 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1131
+ERROR 2019-01-10 15:28:04,650 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 500 59
+INFO 2019-01-10 15:28:04,674 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+ERROR 2019-01-10 15:28:04,678 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 500 59
+INFO 2019-01-10 15:30:39,648 basehttp 124 "GET /authors/ HTTP/1.1" 200 19593
+INFO 2019-01-10 15:30:39,777 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+ERROR 2019-01-10 15:30:39,780 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 500 59
+INFO 2019-01-10 15:30:39,893 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2019-01-10 15:30:39,896 basehttp 124 "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2019-01-10 15:31:20,623 basehttp 124 "GET /authors/ HTTP/1.1" 200 19593
+INFO 2019-01-10 15:31:20,747 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,766 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,781 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,789 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,802 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,816 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,862 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,889 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,918 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,938 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 15:31:20,967 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+INFO 2019-01-10 22:50:52,916 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 22:50:53,138 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121200
+INFO 2019-01-10 22:50:53,186 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385
+INFO 2019-01-10 22:50:53,223 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2019-01-10 22:50:53,262 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:50:53,272 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:50:53,285 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:50:53,346 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:50:53,369 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:50:53,407 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:50:53,432 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:50:53,455 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+INFO 2019-01-10 22:50:54,087 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286
+ERROR 2019-01-10 22:50:54,094 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 500 59
+INFO 2019-01-10 22:51:10,625 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 22:51:10,749 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:10,779 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:10,791 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:10,801 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2019-01-10 22:51:10,812 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:10,847 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:10,868 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:10,900 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:10,922 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:10,955 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:10,982 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,070 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 22:51:43,209 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,235 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,244 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,256 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,269 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,285 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2019-01-10 22:51:43,318 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,334 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,361 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,384 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:51:43,417 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,314 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 22:53:09,443 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,470 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,513 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,521 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,537 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,554 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,598 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,639 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,662 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,692 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:09,719 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,509 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 22:53:12,660 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,703 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,713 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,723 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,735 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,749 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,801 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,822 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,865 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,881 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:12,902 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-01-10 22:53:14,418 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 22:53:14,585 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121200
+INFO 2019-01-10 22:53:14,618 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385
+INFO 2019-01-10 22:53:14,636 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2019-01-10 22:53:14,658 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1131
+INFO 2019-01-10 22:53:14,687 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 200 86927
+INFO 2019-01-10 22:53:14,718 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3597
+INFO 2019-01-10 22:53:14,757 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1735
+INFO 2019-01-10 22:53:14,798 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+INFO 2019-01-10 22:53:14,828 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 37045
+INFO 2019-01-10 22:53:14,862 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+INFO 2019-01-10 22:53:14,894 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+INFO 2019-01-10 22:53:14,997 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2019-01-10 22:53:15,448 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286
+INFO 2019-01-10 22:57:47,252 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 22:57:47,415 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121200
+INFO 2019-01-10 22:57:47,431 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385
+INFO 2019-01-10 22:57:47,447 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2019-01-10 22:57:47,473 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1131
+INFO 2019-01-10 22:57:47,485 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:57:47,503 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:57:47,529 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:57:47,551 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:57:47,581 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:57:47,601 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 22:57:47,625 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-01-10 22:58:02,560 basehttp 124 "GET /imagecode/2 HTTP/1.1" 301 0
+ERROR 2019-01-10 22:58:02,605 exception 118 Internal Server Error: /imagecode/2/
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+TypeError: retrieve() got an unexpected keyword argument 'pk'
+ERROR 2019-01-10 22:58:02,868 basehttp 124 "GET /imagecode/2/ HTTP/1.1" 500 91254
+INFO 2019-01-10 23:02:47,214 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 23:02:47,331 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,361 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,387 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,405 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,421 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,431 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,455 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,479 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,494 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,530 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:02:47,549 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-01-10 23:03:01,580 views 96 图片验证码内容:[image_code: QWYS]
+ERROR 2019-01-10 23:03:01,584 exception 118 Internal Server Error: /imagecode/2/
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 158, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 156, in _get_response
+    response = response.render()
+  File "E:\Envs\lranc\lib\site-packages\django\template\response.py", line 106, in render
+    self.content = self.rendered_content
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\response.py", line 72, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\renderers.py", line 732, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\renderers.py", line 687, in get_context
+    'content': self.get_content(renderer, data, accepted_media_type, renderer_context),
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\renderers.py", line 423, in get_content
+    content = renderer.render(data, accepted_media_type, renderer_context)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\renderers.py", line 106, in render
+    allow_nan=not self.strict, separators=separators
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\utils\json.py", line 28, in dumps
+    return json.dumps(*args, **kwargs)
+  File "d:\program files\python36\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "d:\program files\python36\Lib\json\encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "d:\program files\python36\Lib\json\encoder.py", line 430, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "d:\program files\python36\Lib\json\encoder.py", line 404, in _iterencode_dict
+    yield from chunks
+  File "d:\program files\python36\Lib\json\encoder.py", line 437, in _iterencode
+    o = _default(o)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\utils\encoders.py", line 52, in default
+    return obj.decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+ERROR 2019-01-10 23:03:01,796 basehttp 124 "GET /imagecode/2/ HTTP/1.1" 500 219767
+INFO 2019-01-10 23:06:42,962 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 23:06:43,089 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,101 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,118 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,137 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,151 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,186 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,219 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,256 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,292 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,332 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:43,374 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-01-10 23:06:54,609 views 96 图片验证码内容:[image_code: XGF9]
+ERROR 2019-01-10 23:06:54,615 exception 118 Internal Server Error: /imagecode/2/
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 158, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 156, in _get_response
+    response = response.render()
+  File "E:\Envs\lranc\lib\site-packages\django\template\response.py", line 106, in render
+    self.content = self.rendered_content
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\response.py", line 72, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\renderers.py", line 732, in render
+    context = self.get_context(data, accepted_media_type, renderer_context)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\renderers.py", line 687, in get_context
+    'content': self.get_content(renderer, data, accepted_media_type, renderer_context),
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\renderers.py", line 423, in get_content
+    content = renderer.render(data, accepted_media_type, renderer_context)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\renderers.py", line 106, in render
+    allow_nan=not self.strict, separators=separators
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\utils\json.py", line 28, in dumps
+    return json.dumps(*args, **kwargs)
+  File "d:\program files\python36\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "d:\program files\python36\Lib\json\encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "d:\program files\python36\Lib\json\encoder.py", line 437, in _iterencode
+    o = _default(o)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\utils\encoders.py", line 52, in default
+    return obj.decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+ERROR 2019-01-10 23:06:54,847 basehttp 124 "GET /imagecode/2/ HTTP/1.1" 500 175802
+INFO 2019-01-10 23:07:16,170 views 96 图片验证码内容:[image_code: Z3UY]
+INFO 2019-01-10 23:07:16,175 basehttp 124 "GET /imagecode/2/ HTTP/1.1" 200 3502
+INFO 2019-01-10 23:07:55,837 views 96 图片验证码内容:[image_code: QWYV]
+INFO 2019-01-10 23:07:55,839 basehttp 124 "GET /imagecode/2/ HTTP/1.1" 200 3585
+INFO 2019-01-10 23:07:56,702 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+ERROR 2019-01-10 23:07:56,714 basehttp 124 "GET /favicon.ico HTTP/1.1" 500 59
+INFO 2019-01-10 23:08:32,679 basehttp 124 "GET / HTTP/1.1" 200 6240
+INFO 2019-01-10 23:08:32,848 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:32,877 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:32,887 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:32,927 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:32,943 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:32,957 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:33,014 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:33,036 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:33,074 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:33,129 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:08:33,153 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:53,348 basehttp 124 "GET / HTTP/1.1" 200 6355
+INFO 2019-01-10 23:19:53,792 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121200
+INFO 2019-01-10 23:19:53,831 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385
+INFO 2019-01-10 23:19:53,943 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:53,945 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:53,967 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:54,010 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:54,051 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:54,098 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:54,126 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:54,152 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:54,169 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2019-01-10 23:19:59,063 views 96 图片验证码内容:[image_code: 6MBN]
+INFO 2019-01-10 23:19:59,067 basehttp 124 "GET /imagecode/ HTTP/1.1" 200 3240
+INFO 2019-01-10 23:20:02,064 views 96 图片验证码内容:[image_code: JBTM]
+INFO 2019-01-10 23:20:02,066 basehttp 124 "GET /imagecode/ HTTP/1.1" 200 3312
+INFO 2019-01-10 23:20:17,236 views 96 图片验证码内容:[image_code: 7ANU]
+INFO 2019-01-10 23:20:17,237 basehttp 124 "GET /imagecode/ HTTP/1.1" 200 3447
+INFO 2019-01-10 23:20:18,227 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2019-01-10 23:20:18,373 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286
+INFO 2019-01-10 23:20:52,998 basehttp 124 "GET /imagecode/2 HTTP/1.1" 301 0
+INFO 2019-01-10 23:20:53,185 views 96 图片验证码内容:[image_code: IXZA]
+INFO 2019-01-10 23:20:53,187 basehttp 124 "GET /imagecode/2/ HTTP/1.1" 200 3246
+INFO 2019-01-10 23:20:54,118 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2019-01-10 23:20:54,175 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286
+INFO 2019-01-10 23:20:55,305 views 96 图片验证码内容:[image_code: OURG]
+INFO 2019-01-10 23:20:55,309 basehttp 124 "GET /imagecode/2/ HTTP/1.1" 200 2789
+INFO 2019-01-10 23:20:56,119 views 96 图片验证码内容:[image_code: 8GQP]
+INFO 2019-01-10 23:20:56,120 basehttp 124 "GET /imagecode/2/ HTTP/1.1" 200 3245
+INFO 2019-01-10 23:20:57,035 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2019-01-10 23:20:57,204 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286
+INFO 2019-01-10 23:23:20,812 basehttp 124 "GET / HTTP/1.1" 200 6355
+INFO 2019-01-10 23:23:23,056 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121200
+INFO 2019-01-10 23:23:23,075 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385
+INFO 2019-01-10 23:23:23,095 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2019-01-10 23:23:23,110 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1131
+INFO 2019-01-10 23:23:23,131 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 200 86927
+INFO 2019-01-10 23:23:23,178 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3597
+INFO 2019-01-10 23:23:23,219 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1735
+INFO 2019-01-10 23:23:23,253 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+INFO 2019-01-10 23:23:23,277 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 37045
+INFO 2019-01-10 23:23:23,317 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+INFO 2019-01-10 23:23:23,385 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+INFO 2019-01-10 23:23:23,668 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2019-01-10 23:23:24,484 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286
+ERROR 2019-01-10 23:33:20,719 exception 118 Internal Server Error: /imagecode/
+Traceback (most recent call last):
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "E:\Envs\lranc\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Envs\lranc\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\viewsets.py", line 116, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 495, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 455, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\80710\Desktop\lranc_site\extra_apps\rest_framework\views.py", line 492, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\80710\Desktop\lranc_site\apps\operation\views.py", line 95, in list
+    redis_conn.setex("img_%s" % pk, 300, text)
+NameError: name 'pk' is not defined
+ERROR 2019-01-10 23:33:20,889 basehttp 124 "GET /imagecode/ HTTP/1.1" 500 100035
+INFO 2019-01-10 23:33:21,264 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2019-01-10 23:33:21,543 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286
+INFO 2019-01-10 23:33:22,663 basehttp 124 "GET / HTTP/1.1" 200 6355
+INFO 2019-01-10 23:33:22,875 basehttp 124 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121200
+INFO 2019-01-10 23:33:22,901 basehttp 124 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385
+INFO 2019-01-10 23:33:22,954 basehttp 124 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2019-01-10 23:33:23,066 basehttp 124 "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1131
+INFO 2019-01-10 23:33:23,144 basehttp 124 "GET /static/rest_framework/js/jquery-3.3.1.min.js HTTP/1.1" 200 86927
+INFO 2019-01-10 23:33:23,173 basehttp 124 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3597
+INFO 2019-01-10 23:33:23,210 basehttp 124 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1735
+INFO 2019-01-10 23:33:23,254 basehttp 124 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+INFO 2019-01-10 23:33:23,298 basehttp 124 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 37045
+INFO 2019-01-10 23:33:23,350 basehttp 124 "GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+INFO 2019-01-10 23:33:23,577 basehttp 124 "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+INFO 2019-01-10 23:33:24,329 basehttp 124 "GET /favicon.ico HTTP/1.1" 302 0
+INFO 2019-01-10 23:33:24,387 basehttp 124 "GET /static/img/favicon.ico HTTP/1.1" 200 4286

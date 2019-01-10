@@ -7,6 +7,49 @@ from lranc_site.settings import REGEX_MOBILE
 from rest_framework import serializers
 from users.models import VerifyCode, UserProfile
 from rest_framework.validators import UniqueValidator
+from django_redis import get_redis_connection
+
+
+class ImageCodeCheckSerializer(serializers.Serializer):
+
+    """
+    图片验证码校验序列化器
+    """
+
+    image_code_id = serializers.UUIDField()
+    text = serializers.CharField(max_length=4, min_length=4)
+
+    def validate(self, attrs):
+        """
+        校验
+        """
+        image_code_id = attrs['image_code_id']
+        text = attrs['text']
+        mobile = self.context['view'].kwargs['mobile']
+        # 查询真实图片验证码
+        redis_conn = get_redis_connection('verify_codes')
+        real_image_code_text = redis_conn.get('img_%s' % image_code_id)
+        if not real_image_code_text:
+            raise serializers.ValidationError('图片验证码无效')
+
+        # 讲道理，用户只有一次验证机会，这样才显得严谨
+        # 在查询验证码之后删除redis中的图片验证码
+        try:
+            redis_conn.delete(f"img_{image_code_id}")
+        except Exception as e:
+            raise serializers.ValidationError(e)
+
+        # 比较图片验证码
+        real_image_code_text = real_image_code_text.decode()
+        if real_image_code_text.lower() != text.lower():
+            raise serializers.ValidationError('图片验证码错误')
+
+        # 判断是否在60s内
+        send_flag = redis_conn.get("send_flag_%s" % mobile)
+        if send_flag:
+            raise serializers.ValidationError('请求次数过于频繁')
+
+        return attrs
 
 
 class SmsSerializer(serializers.Serializer):

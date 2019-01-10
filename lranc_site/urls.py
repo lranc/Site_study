@@ -10,13 +10,15 @@ from rest_framework.routers import DefaultRouter
 from authors.views import NovelAuthorsViewSet, AuthorReaderViewSet
 from novels.views import NovelTagsViewSet, NovelViewSet
 from users.views import SmsCodeViewset, UserViewset
-from operation.views import UserFavNovelsViewset, CommentViewset
+from operation.views import UserFavNovelsViewset, CommentViewset, VerifycodeViewSet
 from trades.views import ShoppingCartViewset, OrderViewset
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
 
 
 router = DefaultRouter()
+# 图片验证码
+router.register('imagecode', VerifycodeViewSet, base_name="imagecode")
 # 配置authors的url
 router.register('authors', NovelAuthorsViewSet, base_name='authors')
 router.register('rankreaders', AuthorReaderViewSet, base_name='rankreaders')
@@ -35,6 +37,7 @@ router.register('shopcarts', ShoppingCartViewset, base_name="shopcarts")
 # 订单url
 router.register('orders', OrderViewset, base_name="orders")
 
+
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     path('docs/', include_docs_urls(title='lranc文档')),
@@ -52,4 +55,5 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='/static/img/favicon.ico')),
     # 配置ckeditor路由
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path('verifycodes/<int:image_code_id>', VerifycodeView.as_view())
 ]

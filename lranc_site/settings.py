@@ -164,7 +164,7 @@ LOGGING = {
     },
     'handlers': {  # 日志处理方法
         'console': {  # 向终端中输出日志
-            'level': 'DEBUG',
+            'level': 'INFO',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
@@ -258,7 +258,7 @@ EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全
 # Drf 设置
 REST_FRAMEWORK = {
     # 使用自定义异常处理
-    'EXCEPTION_HANDLER': 'globalutils.exceptions.exception_handler',
+    'EXCEPTION_HANDLER': 'globalutils.defineexceptions.exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -298,7 +298,15 @@ CACHES = {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PASSWORD": redispass,
         }
-    }
+    },
+    "verify_codes": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": redis_uri,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD": redispass,
+        }
+    },
 }
 
 REGEX_MOBILE = r"^1[358]\d{9}$|^147\d{8}$|^176\d{8}$"
