@@ -10,12 +10,18 @@ from rest_framework.routers import DefaultRouter
 from authors.views import NovelAuthorsViewSet, AuthorReaderViewSet
 from novels.views import NovelTagsViewSet, NovelViewSet
 from users.views import SmsCodeViewset, UserViewset
-from operation.views import UserFavNovelsViewset, CommentViewset, VerifycodeViewSet
+from operation.views import UserFavNovelsViewset, CommentViewset, VerifycodeViewSet, VerifycodeAPIView
 from trades.views import ShoppingCartViewset, OrderViewset
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
 
 
+# from lranc_site.hrbridrouter import HybridRouter
+# APIView注册
+# router = HybridRouter()
+# router.register('imagecode', VerifycodeViewSet, base_name="imagecode")
+# router.register('authors', NovelAuthorsViewSet, base_name='authors')
+# router.add_api_view('imageapi', path('imageapi/<int:image_code_id>',VerifycodeAPIView,name='imageapi'))
 router = DefaultRouter()
 # 图片验证码
 router.register('imagecode', VerifycodeViewSet, base_name="imagecode")

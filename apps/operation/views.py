@@ -97,3 +97,17 @@ class VerifycodeViewSet(viewsets.ViewSet):
 
         # 返回验证码图片
         return HttpResponse(image, content_type='image/jpg')
+
+
+class VerifycodeAPIView(APIView):
+    def get(self, request, image_code_id):
+        # 生成验证码图片
+        text, image = captcha.generate_captcha()
+
+        # 保存验证码内容(为的是后面做校验)
+        redis_conn = get_redis_connection('verify_codes')
+        redis_conn.setex("img_%s" % image_code_id, 300, text)
+        logger.info(f"图片验证码内容:[image_code: {text}]")
+
+        # 返回验证码图片
+        return HttpResponse(image, content_type='image/jpg')
